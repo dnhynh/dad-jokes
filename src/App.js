@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
+import axios from 'axios'
+class App extends Component {
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  constructor () {
+    super() 
+    this.handleClick = this.handleClick.bind(this)
+    this.state = {
+      joke: ''
+    }
+  }
+
+  handleClick () {
+    axios({
+      method: 'get',
+      url: 'https://icanhazdadjoke.com/',
+      headers: {
+        Accept: 'text/plain'
+      }
+    }).then(response => console.log(response.data))
+  }
+
+  render () {
+    return (
+      <div className='dashboard'>
+        <h1></h1>
+        <button className='button' onClick={this.handleClick}>
+          Tell me a joke Dad.
+        </button>
+      </div>
+    )
+  }
 }
-
-export default App;
+export default App
